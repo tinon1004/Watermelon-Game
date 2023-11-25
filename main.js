@@ -118,7 +118,7 @@ window.onkeydown = (event) => {
             interval = setInterval(() => {
                 if (currentBody.position.x + currentFruit.radius < 580) 
                     Body.setPosition(currentBody, { 
-                        x: currentBody.position.x + 10, 
+                        x: currentBody.position.x + 1, 
                         y: currentBody.position.y
                 });
             },5);
