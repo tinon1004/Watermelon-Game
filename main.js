@@ -146,6 +146,7 @@ window.onkeyup = (event) => {
             clearInterval(interval);
             interval = null;
     }
+}
 
 //detect collision
 Events.on(engine, "collisionStart", (event) => {
