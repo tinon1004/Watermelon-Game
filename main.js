@@ -121,14 +121,41 @@ window.onkeydown = (event) => {
     }
 }
 
-//충돌 감지
+//detect collision
 Events.on(engine, "collisionStart", (event) => {
     event.pairs.forEach((collision) => {
-        if (collision.bodyA.index == collision.bodyB.index) {
+        if (collision.bodyA.index === collision.bodyB.index) {
+            
+            const index = collision.bodyA.index;
+            if (index === FRUITS.length - 1) {
+                return;
+            }
+
             World.remove(world, [collision.bodyA, collision.bodyB]);
+        
+
+            const newFruit = FRUITS[index+1];
+
+            const newBody = Bodies.circle(
+                collision.collision.supports[0].x,
+                collision.collision.supports[0].y,
+                newFruit.radius,
+                {
+                    
+                    render: {
+                        sprite: {
+                            texture: `${newFruit.name}.png`,
+                            xScale: 0.5,
+                            yScale: 0.5,
+                        }
+                    },
+                    index: index + 1,
+                
+                }
+            
+            );
+            World.add(world, newBody);
         } 
-
-
 
     });
 });
