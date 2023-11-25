@@ -1,4 +1,5 @@
 import { Bodies, Engine, Render, Runner, World } from "matter-js";
+import { FRUITS } from "./fruits";
 
 // create an engine
 const engine = Engine.create();
@@ -40,9 +41,11 @@ const ground = Bodies.rectangle(310, 820, 620, 60, {
 
 const topLine = Bodies.rectangle(310, 150, 620, 5, {
     isStatic: true,
+    isSensor: true,
     render: {
         fillStyle: "#E5D352",
     },
+   
 });
 
 World.add(world, [leftWall, rightWall, ground, topLine]);
@@ -53,3 +56,28 @@ World.add(world, [leftWall, rightWall, ground, topLine]);
 // create a runner (게임 업데이트)
 Render.run(render);
 Runner.run(engine);
+
+
+// create fruits
+function addFruits() {
+    const index = Math.floor(Math.random() * 5);
+    const fruit = FRUITS[index];
+
+    const body = Bodies.circle(300, 50, fruit.radius, {
+        index : index,
+        isSleeping: true,
+        render: {
+            sprite: {
+                texture: `${fruit.name}.png`,
+                xScale: 0.5,
+                yScale: 0.5,
+            },
+        },
+        restitution: 0.2,
+    });
+
+    World.add(world, body);
+}
+
+addFruits();
+ 
