@@ -94,16 +94,18 @@ window.onkeydown = (event) => {
 
     switch (event.code) {
         case "KeyA":
-            Body.setPosition(currentBody, { 
-                x: currentBody.position.x - 10, 
-                y: currentBody.position.y
+            if (currentBody.position.x - currentFruit.radius > 40) 
+                Body.setPosition(currentBody, { 
+                    x: currentBody.position.x - 10, 
+                    y: currentBody.position.y
             });
             break;
 
         case "KeyD":
-            Body.setPosition(currentBody, { 
-                x: currentBody.position.x + 10, 
-                y: currentBody.position.y
+            if (currentBody.position.x + currentFruit.radius < 580) 
+                Body.setPosition(currentBody, { 
+                    x: currentBody.position.x + 10, 
+                    y: currentBody.position.y
             });
             break;
 
