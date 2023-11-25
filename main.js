@@ -38,7 +38,14 @@ const ground = Bodies.rectangle(310, 820, 620, 60, {
     },
 });
 
-World.add(world, [leftWall, rightWall, ground]);
+const topLine = Bodies.rectangle(310, 150, 620, 5, {
+    isStatic: true,
+    render: {
+        fillStyle: "#E5D352",
+    },
+});
+
+World.add(world, [leftWall, rightWall, ground, topLine]);
 
 
 
