@@ -60,6 +60,7 @@ Runner.run(engine);
 
 let currentFruit = null;
 let currentBody = null;
+let disableAction = false;
 
 // create fruits
 function addFruits() {
@@ -102,6 +103,13 @@ window.onkeydown = (event) => {
             break;
 
         case "KeyS":
+            currentBody.isSleeping = false;
+            disableAction = true;
+
+            setTimeout(() => { 
+                addFruits();
+                disableAction = false;
+            }, 1000);
             break;
         
 
