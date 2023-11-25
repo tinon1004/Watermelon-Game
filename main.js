@@ -62,6 +62,7 @@ Runner.run(engine);
 let currentFruit = null;
 let currentBody = null;
 let disableAction = false;
+let interval = null;
 
 // create fruits
 function addFruits() {
@@ -94,20 +95,33 @@ window.onkeydown = (event) => {
     }
 
     switch (event.code) {
+        
+
         case "KeyA":
-            if (currentBody.position.x - currentFruit.radius > 40) 
-                Body.setPosition(currentBody, { 
-                    x: currentBody.position.x - 10, 
-                    y: currentBody.position.y
-            });
+            if (interval) {
+                return;
+            }
+            interval = setInterval(() => {
+                if (currentBody.position.x - currentFruit.radius > 40) 
+                    Body.setPosition(currentBody, { 
+                        x: currentBody.position.x - 1, 
+                        y: currentBody.position.y
+                });
+            },5);
             break;
+        
 
         case "KeyD":
-            if (currentBody.position.x + currentFruit.radius < 580) 
-                Body.setPosition(currentBody, { 
-                    x: currentBody.position.x + 10, 
-                    y: currentBody.position.y
-            });
+            if (interval) {
+                return;
+            }
+            interval = setInterval(() => {
+                if (currentBody.position.x + currentFruit.radius < 580) 
+                    Body.setPosition(currentBody, { 
+                        x: currentBody.position.x + 10, 
+                        y: currentBody.position.y
+                });
+            },5);
             break;
 
         case "KeyS":
@@ -123,6 +137,15 @@ window.onkeydown = (event) => {
 
     }
 }
+
+
+window.onkeyup = (event) => {
+    switch (event.code) {
+        case "KeyA":
+        case "KeyD":
+            clearInterval(interval);
+            interval = null;
+    }
 
 //detect collision
 Events.on(engine, "collisionStart", (event) => {
