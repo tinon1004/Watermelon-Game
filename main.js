@@ -1,4 +1,4 @@
-import { Bodies, Body, Engine, Render, Runner, World } from "matter-js";
+import { Bodies, Body, Engine, Events, Render, Runner, World } from "matter-js";
 import { FRUITS } from "./fruits";
 
 // create an engine
@@ -87,6 +87,11 @@ function addFruits() {
 }
 
 window.onkeydown = (event) => {
+
+    if (disableAction) {
+        return;
+    }
+
     switch (event.code) {
         case "KeyA":
             Body.setPosition(currentBody, { 
@@ -115,6 +120,18 @@ window.onkeydown = (event) => {
 
     }
 }
+
+//충돌 감지
+Events.on(engine, "collisionStart", (event) => {
+    event.pairs.forEach((collision) => {
+        if (collision.bodyA.index == collision.bodyB.index) {
+            World.remove(world, [collision.bodyA, collision.bodyB]);
+        } 
+
+
+
+    });
+});
 
 
 addFruits();
